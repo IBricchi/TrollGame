@@ -7,11 +7,15 @@ public class BobControl : MonoBehaviour
 {
 	public CharacterController controller;
 	public float speed = 20;
+	public float gravity = -9.81f;
+
+	Vector3 vel;
 
 	// Update is called once per frame
 	void Update()
 	{
 		PlayerMovement();
+		PlayerGravity();
 	}
 
 	void PlayerMovement(){
@@ -20,5 +24,10 @@ public class BobControl : MonoBehaviour
 
 		Vector3 player_movement = transform.right * hor + transform.forward * ver;
 		controller.Move(player_movement * speed * Time.deltaTime);
+	}
+
+	void PlayerGravity(){
+		vel.y += gravity * Time.deltaTime / 2;
+		controller.Move(vel * Time.deltaTime);
 	}
 }
