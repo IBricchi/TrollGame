@@ -6,10 +6,16 @@ using UnityEngine;
 public class BobControl : MonoBehaviour
 {
 	public CharacterController controller;
+
 	public float speed = 20;
 	public float gravity = -9.81f;
 
+	public Transform ground_check;
+	public float ground_dist = 0.4f;
+	public LayerMask ground_mask;
+
 	Vector3 vel;
+	bool is_grounded = false;
 
 	// Update is called once per frame
 	void Update()
@@ -28,6 +34,14 @@ public class BobControl : MonoBehaviour
 
 	void PlayerGravity(){
 		vel.y += gravity * Time.deltaTime / 2;
+
+		is_grounded = Physics.CheckSphere(ground_check.position, ground_dist, ground_mask);
+
+		if (is_grounded && vel.y < 0)
+		{
+			vel.y = -2.0f;
+		}
+
 		controller.Move(vel * Time.deltaTime);
 	}
 }
