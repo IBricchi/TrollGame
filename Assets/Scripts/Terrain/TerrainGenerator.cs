@@ -5,9 +5,11 @@ using UnityEngine;
 using UnityEngine.PlayerLoop;
 
 [RequireComponent(typeof(MeshFilter))]
+[RequireComponent(typeof(MeshCollider))]
 public class TerrainGenerator : MonoBehaviour
 {
 	Mesh mesh;
+
 	public int size = 30;
 	public float scale = 20;
 	public float depth = 30;
@@ -70,5 +72,9 @@ public class TerrainGenerator : MonoBehaviour
 
 		// calculate normals for shading
 		mesh.RecalculateNormals();
+
+		// set mesh collider for collisions <- no shit Sherlock
+		// must be at end so added only once mesh has been created properly
+		GetComponent<MeshCollider>().sharedMesh = mesh;
 	}
 }
