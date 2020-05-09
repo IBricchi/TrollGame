@@ -219,9 +219,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 1277990204}
   player: {fileID: 1618454362}
-  mouse_sens: 150
-  zoom_sens: 100
-  clamp_angle_min: -40
+  mouse_sens: 10
+  zoom_sens: 1
+  clamp_angle_min: 0
   clamp_angle_max: 50
   clamp_zoom_min: 3
   clamp_zoom_max: 20
@@ -235,7 +235,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1056037246}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: GroundCheck
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -249,7 +249,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1056037245}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.01, y: -0.71, z: 0.021}
+  m_LocalPosition: {x: 0, y: -1.025, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1618454362}
@@ -348,9 +348,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d6c20a906773e84aae2ae85736ed94a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  size: 30
-  scale: 20
-  depth: 30
+  size: 50
+  scale: 10
+  depth: 100
 --- !u!64 &1122275846
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -593,7 +593,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1618454361}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.81, y: 30, z: -0.35}
+  m_LocalPosition: {x: 0, y: 50, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1995189492}
@@ -634,8 +634,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   controller: {fileID: 1618454363}
-  speed: 20
+  speed: 10
   gravity: -9.81
+  jump_height: 3
+  ground_check: {fileID: 1056037246}
+  ground_dist: 0.4
+  ground_mask:
+    serializedVersion: 2
+    m_Bits: 0
+  is_grounded: 0
 --- !u!1 &1995189491
 GameObject:
   m_ObjectHideFlags: 0
