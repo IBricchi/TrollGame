@@ -33,6 +33,14 @@ public class @InputMaster : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""CTR"",
+                    ""type"": ""Button"",
+                    ""id"": ""89a9a2d7-68e5-4a44-813f-0d74327f4bde"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -156,6 +164,17 @@ public class @InputMaster : IInputActionCollection, IDisposable
                     ""action"": ""Move"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d9ac9824-71dd-4141-ae5a-e49578efbf34"",
+                    ""path"": ""<Keyboard>/ctrl"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""CTR"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -212,6 +231,7 @@ public class @InputMaster : IInputActionCollection, IDisposable
         m_Bob = asset.FindActionMap("Bob", throwIfNotFound: true);
         m_Bob_Move = m_Bob.FindAction("Move", throwIfNotFound: true);
         m_Bob_Jump = m_Bob.FindAction("Jump", throwIfNotFound: true);
+        m_Bob_CTR = m_Bob.FindAction("CTR", throwIfNotFound: true);
         // Camera
         m_Camera = asset.FindActionMap("Camera", throwIfNotFound: true);
         m_Camera_Scroll = m_Camera.FindAction("Scroll", throwIfNotFound: true);
@@ -267,12 +287,14 @@ public class @InputMaster : IInputActionCollection, IDisposable
     private IBobActions m_BobActionsCallbackInterface;
     private readonly InputAction m_Bob_Move;
     private readonly InputAction m_Bob_Jump;
+    private readonly InputAction m_Bob_CTR;
     public struct BobActions
     {
         private @InputMaster m_Wrapper;
         public BobActions(@InputMaster wrapper) { m_Wrapper = wrapper; }
         public InputAction @Move => m_Wrapper.m_Bob_Move;
         public InputAction @Jump => m_Wrapper.m_Bob_Jump;
+        public InputAction @CTR => m_Wrapper.m_Bob_CTR;
         public InputActionMap Get() { return m_Wrapper.m_Bob; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -288,6 +310,9 @@ public class @InputMaster : IInputActionCollection, IDisposable
                 @Jump.started -= m_Wrapper.m_BobActionsCallbackInterface.OnJump;
                 @Jump.performed -= m_Wrapper.m_BobActionsCallbackInterface.OnJump;
                 @Jump.canceled -= m_Wrapper.m_BobActionsCallbackInterface.OnJump;
+                @CTR.started -= m_Wrapper.m_BobActionsCallbackInterface.OnCTR;
+                @CTR.performed -= m_Wrapper.m_BobActionsCallbackInterface.OnCTR;
+                @CTR.canceled -= m_Wrapper.m_BobActionsCallbackInterface.OnCTR;
             }
             m_Wrapper.m_BobActionsCallbackInterface = instance;
             if (instance != null)
@@ -298,6 +323,9 @@ public class @InputMaster : IInputActionCollection, IDisposable
                 @Jump.started += instance.OnJump;
                 @Jump.performed += instance.OnJump;
                 @Jump.canceled += instance.OnJump;
+                @CTR.started += instance.OnCTR;
+                @CTR.performed += instance.OnCTR;
+                @CTR.canceled += instance.OnCTR;
             }
         }
     }
@@ -347,6 +375,7 @@ public class @InputMaster : IInputActionCollection, IDisposable
     {
         void OnMove(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);
+        void OnCTR(InputAction.CallbackContext context);
     }
     public interface ICameraActions
     {

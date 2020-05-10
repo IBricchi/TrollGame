@@ -20,6 +20,14 @@
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
+                },
+                {
+                    "name": "CTR",
+                    "type": "Button",
+                    "id": "89a9a2d7-68e5-4a44-813f-0d74327f4bde",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
                 }
             ],
             "bindings": [
@@ -143,6 +151,17 @@
                     "action": "Move",
                     "isComposite": false,
                     "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "d9ac9824-71dd-4141-ae5a-e49578efbf34",
+                    "path": "<Keyboard>/ctrl",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "CTR",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         },

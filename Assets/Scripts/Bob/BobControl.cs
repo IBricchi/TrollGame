@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
+using UnityEditor.UI;
 using UnityEngine;
 
 [RequireComponent(typeof(CharacterController))]
@@ -18,8 +19,11 @@ public class BobControl : MonoBehaviour
 	public float ground_dist = 0.4f;
 	public LayerMask ground_mask;
 
-	Vector3 vel;
+	public Vector3 vel;
 	public bool is_grounded = false;
+
+	public bool run = false;
+	float run_mult = 1f;
 
 	Vector2 move_vals;
 	bool jump_val;
@@ -40,6 +44,8 @@ public class BobControl : MonoBehaviour
 		controls.Bob.Move.canceled += _ => move_vals = Vector2.zero;
 		controls.Bob.Jump.performed += _ => jump_val = true;
 		controls.Bob.Jump.canceled += _ => jump_val = false;
+		controls.Bob.CTR.performed += _ => run = true;
+		controls.Bob.CTR.canceled += _ => run = false;
 	}
 
 	public void OnEnable()
@@ -57,7 +63,8 @@ public class BobControl : MonoBehaviour
 		float ver = direction.y;
 
 		Vector3 player_movement = transform.right * hor + transform.forward * ver;
-		controller.Move(player_movement * speed * Time.deltaTime);
+
+		controller.Move(player_movement * speed * (run ? run_mult : 1) * Time.deltaTime);
 	}
 
 	void PlayerGravity(){
