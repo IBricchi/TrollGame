@@ -333,8 +333,8 @@ MonoBehaviour:
   r_seed: 10000
   render_distance: 5
   c_size: 100
-  c_subs: 10
-  c_depth: 30
+  c_subs: 2
+  c_depth: 60
   terrain_frequency: 0.01
   mat: {fileID: 2100000, guid: dae778f931770774bb966bc146ed82c3, type: 2}
 --- !u!4 &1122275844

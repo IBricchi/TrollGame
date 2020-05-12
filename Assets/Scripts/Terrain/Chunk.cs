@@ -45,36 +45,35 @@ public class Chunk : MonoBehaviour
 	}
 
 	void create_shape(){
-		// verteces
-		vertices = new Vector3[(subs + 1) * (subs + 1)];
-		for(int vert = 0, z = 0; z <= subs; z++){
-			for(int x = 0; x <= subs; x++){
-				vertices[vert] = new Vector3(
-					c_x * size + x * size / (float)subs,
-					noise(c_x * size + x * size / (float)subs, c_z * size + z * size / (float)subs),
-					c_z * size + z * size / (float)subs
-				);
-				vert++;
+		// triangles with flat shading
+		vertices = new Vector3[subs * subs * 6];
+		triangles = new int[subs * subs * 6];
+		for (int i = 0, z = 0; z < subs; z++)
+		{
+			for (int x = 0; x < subs; x++)
+			{
+				// setup one square in mesh, which has 2 trianges
+
+				// setup vertices
+				vertices[i] = new Vector3(c_x * size + x * size / (float)subs, 0, c_z * size + z * size / (float)subs);
+				vertices[i + 1] = new Vector3(c_x * size + x * size / (float)subs, 0, c_z * size + (z + 1) * size / (float)subs);
+				vertices[i + 2] = new Vector3(c_x * size + (x + 1) * size / (float)subs, 0, c_z * size + (z + 1) * size / (float)subs);
+				vertices[i + 3] = new Vector3(c_x * size + x * size / (float)subs, 0, c_z * size + z * size / (float)subs);
+				vertices[i + 4] = new Vector3(c_x * size + (x + 1) * size / (float)subs, 0, c_z * size + (z + 1) * size / (float)subs);
+				vertices[i + 5] = new Vector3(c_x * size + (x + 1) * size / (float)subs, 0, c_z * size + z * size / (float)subs);
+
+
+				for (int j = 0; j < 6; j++)
+				{
+					// setup vertices hight with noise
+					vertices[i + j].y = noise(vertices[i + j].x, vertices[i + j].z);
+
+					// setup triangles
+					triangles[i + j] = i + j;
+				}
+				i += 6;
 			}
 		}
-
-		// triangles
-		triangles = new int[subs * subs * 6];
-		for(int vert = 0, tri = 0, z = 0; z < subs; z++){
-			for(int x = 0; x < subs; x++){
-				triangles[tri] = vert;
-				triangles[tri + 1] = vert + subs + 1;
-				triangles[tri + 2] = vert + 1;
-
-				triangles[tri + 3] = vert + subs + 1;
-				triangles[tri + 4] = vert + subs + 2;
-				triangles[tri + 5] = vert + 1;
-
-				vert++;
-				tri += 6;
-			}
-			vert++;
-		}	
 	}
 
 	void update_mesh(){

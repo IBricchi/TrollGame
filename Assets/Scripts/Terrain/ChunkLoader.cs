@@ -30,8 +30,6 @@ public class ChunkLoader : MonoBehaviour
 
 		for(int z = -lc_dim_size/2; z <= lc_dim_size/2; z++){
 			for(int x = -lc_dim_size/2; x <= lc_dim_size/2; x++){
-				print(z);
-				print(x);
 				GameObject new_load_obj = new GameObject();
 				new_load_obj.layer = 8;
 
