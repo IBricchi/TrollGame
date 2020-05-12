@@ -94,3 +94,4 @@ public class Chunk : MonoBehaviour
 		return Mathf.PerlinNoise((a + r_seed) * freq, (b + r_seed) * freq) * depth;
 	}
 }
+
